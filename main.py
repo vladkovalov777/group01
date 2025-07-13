@@ -7,17 +7,16 @@ uri = f"mongodb+srv://{config.MONGO_USER}:{config.MONGO_PASSWORD}@cluster0.nns1h
 client = MongoClient(uri, server_api=ServerApi("1"))
 # Send a ping to confirm a successful connection
 
-db = client["books_database"]
+database = client["books_database"]
+books_collection = database["books"]
 
-books_collection = db["books"]
-
-game_of_thrones = {
+got_book = {
     "назва": "Гра престолів",
     "вартість": 350,
     "рік_випуску": 1996,
     "кількість_сторінок": 694,
 }
-books_collection.insert_one(game_of_thrones)
+books_collection.insert_one(got_book)
 
 school_books = [
     {"назва": "Математика 9 клас", "клас": 9, "кількість_сторінок": 230},
@@ -26,6 +25,8 @@ school_books = [
     {"назва": "Англійська мова. Рівень B1", "клас": 9, "кількість_сторінок": 185},
     {"назва": "Основи здоров’я", "клас": 9, "кількість_сторінок": 170},
 ]
+books_collection.insert_many(school_books)
+
 
 try:
     client.admin.command("ping")
