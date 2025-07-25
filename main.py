@@ -10,6 +10,8 @@ client = MongoClient(uri, server_api=ServerApi("1"))
 database = client["books_database"]
 books_collection = database["books"]
 
+# READ
+
 print("\n Усі книги:")
 for book in books_collection.find():
     print(book)
@@ -22,6 +24,8 @@ print("\n Книги з кількістю сторінок більше 200:")
 for book in books_collection.find({"кількість_сторінок": {"$gt": 200}}):
     print(book)
 
+# UPDATE
+
 new_price = 450
 result = books_collection.update_one(
     {"назва": "Гра престолів"}, {"$set": {"вартість": new_price}}
@@ -30,6 +34,8 @@ print(f"\n Оновлено {result.modified_count} книгу(и) — нова 
 
 result = books_collection.update_many({"клас": 9}, {"$set": {"favorite": True}})
 print(f"\n Додано поле 'favorite' до {result.modified_count} книги(и)")
+
+#DELETE
 
 delete_result = books_collection.delete_one({"назва": "Основи здоров’я"})
 print(f"\n Видалено книгу 'Основи здоров’я' — {delete_result.deleted_count} документ")
