@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тури</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px 4px 0 0;
+        }
+    </style>
+</head>
+<body class="container mt-4">
+    <h1>🌍 Наші тури</h1>
+    <form method="get">
+        <input name="q" class="form-control mb-3" placeholder="Пошук..." value="{{ request.query_params.q or '' }}">
+    </form>
+    <div class="row">
+        {% for tour in tours %}
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="{{ tour.image }}" class="card-img-top">
+                <div class="card-body">
+                    <h5>{{ tour.title }}</h5>
+                    <p>{{ tour.description[:100] }}...</p>
+                    <a href="/tour/{{ tour.pk }}" class="btn btn-primary">Деталі</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
